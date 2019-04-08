@@ -57,6 +57,16 @@ public class DesignTacoController {
         return "design";
     }
 
+    @PostMapping
+    public String processDesign(@Valid Taco design, Errors errors){
+        if(errors.hasErrors()){
+            return "design";
+        }
+        log.info("processing design"+design);
+        return "redirect:/orders/current";
+
+    }
+
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
         return ingredients.stream()
                 .filter(x -> x.getType().equals(type))
